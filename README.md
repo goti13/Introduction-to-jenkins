@@ -42,3 +42,71 @@ tools, and leveraging containerization technologies like Docker
 Now that we have an idea what jenkins, let's dive in to installing jenkins
 
 *Update package repositories*
+
+```
+sudo apt update
+
+```
+
+*Install JDK*
+
+```
+sudo apt install default-jdk-headless
+
+```
+
+*Install Jenkins*
+
+```
+    wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
+    sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
+    /etc/apt/sources.list.d/jenkins.list'
+    sudo apt update
+    sudo apt-get install jenkins
+```
+
+**The command installs Jenkins. It involves importing the Jenkins GPG key for package venfication, adding the Jenkins repository to the systems sources, updating package lists, and finally, installing Jenkins through the package manager (apt-get).**
+
+*Check if Jenkins has been install and is up and running*
+
+```
+sudo systemctl status jenkins
+
+```
+![image](https://github.com/user-attachments/assets/0b0b37fc-a38d-4779-b158-671cfdbafd21)
+
+
+**On our Jenkins instance, create new inbound rules for port 8080 in security group**
+
+By default, jenkins listens on port 8080, we need create an inbound rule for this in the security group of our jenkins instance
+
+![image](https://github.com/user-attachments/assets/15b44b63-d74c-44ae-8f33-19a82d8cf863)
+
+
+**Set up Jenkins Web Console**
+
+i. Input your Jenkins Instance ip address on your web browser i.e. http://public_ip_address:8080
+ii. On your Jenkins instance, check "/var/lib/jenkins/secrets/initialAdminPassword to know your password.
+
+![image](https://github.com/user-attachments/assets/37bcacb4-4286-4443-af98-94bac8ed52e7)
+
+![image](https://github.com/user-attachments/assets/c3ddb370-896b-466b-8eda-0c486d7d05f8)
+
+iii. Install suggested plugins
+
+![image](https://github.com/user-attachments/assets/13880a02-ccd5-4620-8832-ccb191aac475)
+
+iv. Create a user account
+
+![image](https://github.com/user-attachments/assets/3c13be54-7f34-4b71-a950-341b03c158da)
+
+v. Login to the Jenkins console
+
+![image](https://github.com/user-attachments/assets/6911e2b7-c4d1-439b-8ac5-d95c21277227)
+
+
+
+
+
+
+
