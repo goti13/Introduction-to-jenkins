@@ -160,21 +160,54 @@ iii. Create a github webhook using jenkins ip address and port
 
 ![image](https://github.com/user-attachments/assets/6bb3d016-1093-4565-a3b0-91ebbd428ccb)
 
+Now, go ahead and make some change in any file in your GitHub repository (e.g. README.MD file) and push the changes to the master branch.
+You will see that a new build has been launched automatically (by webhook).
 
 
+NOTE:
 
+If you installed docker on a local host, Adding the localhost address to the "payload url" of your github will not work. You will need to use a tool Called ingrok.
 
+What is ngrok?
+ngrok is a tool that creates a temporary public URL that forwards requests to your local machine.
 
+**Steps to Use** ngrok **for GitHub Webhooks**
 
+1. Install ngrok (if not already installed)
 
+```
+brew install ngrok  # macOS (using Homebrew)
+sudo apt install ngrok  # Ubuntu/Debian
+choco install ngrok  # Windows (Chocolatey)
+```
+2. Start an ngrok tunnel for your Jenkins instance running on 8080
 
+```
+ngrok http 8084
+```
+3.  Get the Public URL
 
+After running the command, you’ll see output like this:
 
+```
+Forwarding    https://random-name.ngrok.io -> http://localhost:8084
 
+```
+Use the https://random-name.ngrok.io URL in your GitHub webhook’s "Payload URL"
 
+4. Configure the Webhook in GitHub
 
-
-
+* Go to your GitHub repo → Settings → Webhooks → Add webhook
+* In Payload URL, enter:
+  
+  ```
+  https://random-name.ngrok.io/github-webhook/
+  
+  ```
+* Set Content type to application/json
+* Set Events to Just the push event (or customize)
+* Click Add webhook
+Now, GitHub will send webhooks to your localhost via ngrok
 
 
 
