@@ -105,6 +105,74 @@ v. Login to the Jenkins console
 ![image](https://github.com/user-attachments/assets/6911e2b7-c4d1-439b-8ac5-d95c21277227)
 
 
+# Jenkins free style 
+
+Jenkins Job
+In Jenkins, a job is a unit of work or a task that can be executed by the Jenkins automation server.
+A Jenkins job represents a specific task or set of tasks that needs to be performed as part of a build or deployment process. Jobs in Jenkins are created to automate the execution of various steps such as compiling code, running tests, packaging applications, and deploying them to servers. Each Jenkins job is configured with a series of build steps, post-build actions, and other settings that define how the job should be executed.
+
+# Creating a Freestyle Project
+Let's create our first build job
+i. From the dashboard menu on the left side, click on new item
+
+![image](https://github.com/user-attachments/assets/21cb7518-59b3-4e2d-86f2-1e85f78d6cd2)
+
+ii. Create a freestyle project and name it "my-first-job"
+
+![image](https://github.com/user-attachments/assets/43751108-683f-4602-8861-d3510eac6352)
+
+# Connecting Jenkins To Our Source Code Management
+
+Now that we have created a freestyle project, let connect jenkins with github.
+
+i.  Create a new repository called jenkins-scm with a README.md file
+
+ii. Connect "jenkins' to 'jenkins-scm' repository by pasting the repository url in the area selected below. Make sure your current branch is 'main'
+
+
+<img width="1173" alt="image" src="https://github.com/user-attachments/assets/42e051db-960e-4980-a26d-52642f028d96" />
+
+
+<img width="1220" alt="image" src="https://github.com/user-attachments/assets/491afcf0-cc18-4da4-beed-9f754e3cdd60" />
+
+
+iii. Save configuration and run "build now" to connect jenkins to our repository
+
+<img width="1031" alt="image" src="https://github.com/user-attachments/assets/30b88a44-236c-4b9a-b1ef-6560bdad2549" />
+
+We have successfully connected jenkins with our github repository (jenkins-scm)
+
+Configuring Build Trigger
+
+As a engineer, we need to be able to automate things and make our work easier in possible ways. We have connected "jenkins' to 'jenkins-scm', but we cannot run a new build with clicking on
+
+'Build Now'. To eliminate this, we need to conflure a build trigger to our jenkins job. With this, jenkins will run a new build anytime a change is made to our github repository
+
+i. Click "Configure" your job and add this configurations
+
+ii. Click on build trigger to configure triggering the job from GitHub webhook
+
+![image](https://github.com/user-attachments/assets/9fbd2376-4a42-4c0d-bf58-9804229802e9)
+
+iii. Create a github webhook using jenkins ip address and port
+
+<img width="945" alt="image" src="https://github.com/user-attachments/assets/633eb70e-54fb-47cc-8c47-d1c39609380a" />
+
+![image](https://github.com/user-attachments/assets/6bb3d016-1093-4565-a3b0-91ebbd428ccb)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
