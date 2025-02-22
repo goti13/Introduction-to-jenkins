@@ -207,7 +207,7 @@ Use the https://random-name.ngrok.io URL in your GitHub webhook’s "Payload URL
 * Set Content type to application/json
 * Set Events to Just the push event (or customize)
 * Click Add webhook
-Now, GitHub will send webhooks to your localhost via ngrok
+Now, GitHub will send webhooks to your localhost via ngrok.
 
 
 
