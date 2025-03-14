@@ -11,99 +11,175 @@ entire worklows as code, ensuring consistent and reproducible builds. Integratio
 Jenkins' fexibility extensibility through plugins, and supportt for various tools make it a preffered choice for organizations ain=ming to implement efficient and automated DevOps practice.
 
 
-# Project goals
-By the end on this project you should have:
+**Prerequisite**
 
-* Developed a foundational understanding of Continuous Integration (Cl) and Continuous Delivery (CD) principles, and articulate their role in improvina software development processes
-* Acquired proficiency in using Jenkins by mastering installation, configuration, and navigation through the Jenkins user interface, and gain hands-on experience in creating and managing Jenkins jobs
-* Learned the end-to-end process of automating software builds, running automated tests, and deploying applications using Jenkins, fostering a practical understanding of CI/CD pipelines.
-* Apply best practices in CI/CD processes, including parameterized builds, integration with externa
-tools, and leveraging containerization technologies like Docker
+- Knowledge of Jenkins essentials
+- 
 
-# Project Highlight
+# Project Components
 
-* Introduction To CICD
-* What is Jenkins
-* Project Pre-requisites
-* Project Gaols
-* Getting Started With Jenkins
-* Jenkins Job
-* Creating g Freestyle Project
-* Connecting Jenkins To Our Source Code Management
-* Configuring Build Trigger
-* Creating a Pipeline Job
-* Configuring Build Trigger
-* Writing Jenkins Pipeline Script
-* Installing Docker
-* Building Pipeline Script
+1. Jenkins Server Setup
 
-# Getting Started With Jenkins
+**Objective: Configure Jenkins server for Cl/CD pipeline automation**
 
-Now that we have an idea what jenkins, let's dive in to installing jenkins
+Steps:
 
-*Update package repositories*
+i. Install Jenkins on a dedicated server.
+
+ii. Set up necessary plugins (Git, Docker, etc.)
+
+iii. Configure Jenkins with required security measures.
+
+
+**Update packege repository**
+
+```
+sudo apt update && sudo apt upgrade -y
+
+```
+
+![image](https://github.com/user-attachments/assets/bcf64edf-2e04-419c-849d-65af2ebdcda8)
+
+
+**Install Java**
+
+```
+sudo apt install -y openjdk-17-jdk
+
+```
+
+![image](https://github.com/user-attachments/assets/3eaf0b47-267f-415b-80e1-bc1e8708620b)
+
+
+**Verify Java installation**
+
+```
+
+java -version
+
+```
+
+You should have an output similar to:
+
+
+![image](https://github.com/user-attachments/assets/411e1674-98d0-4cd2-bb18-f5a1255b622b)
+
+
+**Add Jenkins Repository Key**
+
+```
+curl -fsSL https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key | sudo tee \
+/usr/share/keyrings/jenkins-keyring.asc > /dev/null
+
+```
+
+![image](https://github.com/user-attachments/assets/b5399c02-f52f-416e-8a46-49590be492f7)
+
+**Add Jenkins Key**
+
+```
+
+echo "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] \
+https://pkg.jenkins.io/debian-stable binary/" | sudo tee \
+/etc/apt/sources.list.d/jenkins.list > /dev/null
+
+```
+
+![image](https://github.com/user-attachments/assets/e5ffa758-b6d1-4f4a-bec5-32ed7e580158)
+
+
+**Install Jenkins**
 
 ```
 sudo apt update
+sudo apt install -y jenkins
 
 ```
 
-*Install JDK*
+![image](https://github.com/user-attachments/assets/986c5636-3ea7-437b-9316-0bd5eaddd3fe)
+
+
+**Start and Enable Jenkins Service**
 
 ```
-sudo apt install default-jdk-headless
+sudo systemctl start jenkins
 
 ```
 
-*Install Jenkins*
+Enable Jenkins
 
 ```
-    wget -q -O - https://pkg.jenkins.io/debian-stable/jenkins.io.key | sudo apt-key add -
-    sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > \
-    /etc/apt/sources.list.d/jenkins.list'
-    sudo apt update
-    sudo apt-get install jenkins
-```
-
-**The command installs Jenkins. It involves importing the Jenkins GPG key for package venfication, adding the Jenkins repository to the systems sources, updating package lists, and finally, installing Jenkins through the package manager (apt-get).**
-
-*Check if Jenkins has been install and is up and running*
+sudo systemctl enable jenkins
 
 ```
+
+![image](https://github.com/user-attachments/assets/d121f3fd-b6ce-4a03-88fd-16be7a164d2b)
+
+
+Check the status of Jenkins
+
+```
+
 sudo systemctl status jenkins
 
 ```
-![image](https://github.com/user-attachments/assets/0b0b37fc-a38d-4779-b158-671cfdbafd21)
 
 
-**On our Jenkins instance, create new inbound rules for port 8080 in security group**
+If it's working, you should see:
 
+![image](https://github.com/user-attachments/assets/30b373ca-cb7a-4c8b-9b99-bb12c4b0b4b9)
+
+
+On our Jenkins instance, create new inbound rules for port 8080 in security group
 By default, jenkins listens on port 8080, we need create an inbound rule for this in the security group of our jenkins instance
 
-![image](https://github.com/user-attachments/assets/15b44b63-d74c-44ae-8f33-19a82d8cf863)
+<img width="1438" alt="image" src="https://github.com/user-attachments/assets/0a906882-3738-41cf-bd50-7360821012e4" />
 
 
-**Set up Jenkins Web Console**
+Open Jenkins in your browser:
 
-i. Input your Jenkins Instance ip address on your web browser i.e. http://public_ip_address:8080
-ii. On your Jenkins instance, check "/var/lib/jenkins/secrets/initialAdminPassword to know your password.
+```
 
-![image](https://github.com/user-attachments/assets/37bcacb4-4286-4443-af98-94bac8ed52e7)
+http://<your-server-ip>:8080
 
-![image](https://github.com/user-attachments/assets/c3ddb370-896b-466b-8eda-0c486d7d05f8)
+```
 
-iii. Install suggested plugins
+You can retrieve the server ip address with the command:
 
-![image](https://github.com/user-attachments/assets/13880a02-ccd5-4620-8832-ccb191aac475)
+```
 
-iv. Create a user account
+curl ifconfig.me
 
-![image](https://github.com/user-attachments/assets/3c13be54-7f34-4b71-a950-341b03c158da)
+```
 
-v. Login to the Jenkins console
+![image](https://github.com/user-attachments/assets/c6e944b6-84b3-41ff-9e64-1675116937b9)
 
-![image](https://github.com/user-attachments/assets/6911e2b7-c4d1-439b-8ac5-d95c21277227)
 
+**Unlock Jenkins**
+
+To get the admin password, run:
+
+```
+
+sudo cat /var/lib/jenkins/secrets/initialAdminPassword
+
+```
+
+![image](https://github.com/user-attachments/assets/95198e5b-7a74-42fb-837f-8fb241aec8db)
+
+
+
+Install Suggested plugins
+
+![image](https://github.com/user-attachments/assets/5f84fd80-c278-4a70-be7d-4fcb8215787e)
+
+Create Admin User
+
+![image](https://github.com/user-attachments/assets/40fa0de9-1a93-4f84-ab99-dc60f558b87a)
+
+Login to Jenkins Console
+
+![image](https://github.com/user-attachments/assets/90412701-8154-42e2-a82d-ad39d56e322e)
 
 
 
